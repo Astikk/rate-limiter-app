@@ -1,6 +1,16 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+class Store(models.Model):
+    bmp_id = models.CharField(unique=True, max_length=100)
+    store_name = models.CharField(max_length=100)
+
+class StoreOwner(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    store = models.ForeignKey(Store, on_delete=models.CASCADE)
+    owner_type = models.CharField(max_length=100, choices=(('ADMIN', 'ADMIN'), ('SUBADMIN', 'SUBADMIN')))
+
 class Category(models.Model):
     name = models.CharField(max_length=100)\
 
